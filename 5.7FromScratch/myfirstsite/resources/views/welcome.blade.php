@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html>
-    <head>
+@extends('layout')
 
-    </head>
 
-    <body>
-        <h1>Here we go!!!!</h1>
-    </body>
+
+@section('content')
+
+    <h1>My First Website</h1>
+
+    <ul>
+        @foreach ($tasks as $task)
+            <li>{{ $task }}</li>
+        @endforeach
+    </ul>
+
+@endsection
