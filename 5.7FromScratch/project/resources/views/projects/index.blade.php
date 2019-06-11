@@ -10,7 +10,7 @@
 
         @foreach ($projects as $project)
             
-            <h3>Title: {{$project->title}}</h3>
+            <h2>Title: {{$project->title}}</h2>
             <p>Description: {{$project->description}}</p>
        
             
