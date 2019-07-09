@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\ProjectCreated;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -10,6 +12,10 @@ class Project extends Model
         'owner_id',
         'title', 
         'description'
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ProjectCreated::class
     ];
 
     public function owner() {
