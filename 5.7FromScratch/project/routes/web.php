@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Filesystem\Filesystem;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,24 @@
 |
 */
 
+class Foo {
+
+}
+
+class Example {
+    private $foo;
+
+    public function __construct(Foo $foo)
+    {
+        $this->foo = $foo;
+    }
+
+}
+
 Route::get('/', function () {
+
+    dd(app('Example'));
+
     return view('welcome');
 });
 
