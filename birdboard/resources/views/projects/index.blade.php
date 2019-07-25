@@ -10,7 +10,7 @@
 
         <ul>
             @forelse ($projects as $project)
-                <li><a href="{{ $project->id }}" >{{ $project->title }}</a></li>
+                <li><a href="/projects/{{ $project->id }}" >{{ $project->title }}</a></li>
 
             @empty
                 <li>No Projects Yet.</li>
