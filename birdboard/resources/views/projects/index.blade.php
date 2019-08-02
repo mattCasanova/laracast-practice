@@ -2,22 +2,26 @@
 
 @section('content')
 
-    <div class="flex items-center mb-3">
-        <a href="/projects/create">New Proejct</a>
-    </div>
+    <header class="flex items-center mb-3 py-3">
+        <div class="flex justify-between w-full items-center">
+            <h2 class="text-grey text-sm font-normal">My Projects</h2>
+            <a class="button" href="/projects/create">New Proejct</a>
+        </div>
+    </header>
 
 
-    <div>
+    <main class="flex flex-wrap -mx-3">
         @forelse ($projects as $project)
-            <div class="bg-white">
-                <h3>{{ $project->title }}</h3>
+            <div class="w-1/3 px-3 pb-6">    
+                <div class="bg-white p-5 rounded shadow" style="height: 200px">
+                    <h3 class="font-normal text-xl py-4">{{ $project->title }}</h3>
 
-                <div>{{ $project->description }}</div>
+                    <div class="text-grey">{{ str_limit($project->description, 100) }}</div>
 
-            </div>
-        
+                </div>
+            </div>    
         @empty
             <div>No Projects Yet.</div>
         @endforelse
-    </div>
+    </main>
 @endsection
