@@ -35,6 +35,11 @@ class ProjectTasksController extends Controller
      */
     public function store(Project $project)
     {
+        
+        if (auth()->user()->id != $project->owner_id) {
+            abort(403);
+        }
+
         request()->validate(['body' => 'required']);
         $project->addTask(request('body'));
         return redirect($project->path());
@@ -65,13 +70,22 @@ class ProjectTasksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Project  $project
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Project $project, Task $task)
     {
-        //
+        if (auth()->user()->id != $project->owner_id) {
+            abort(403);
+        }
+        request()->validate(['body' => 'required']);
+        $task->update([
+            'body' => request('body'),
+            'completed' => request()->has('completed')
+        ]);
+
+        return redirect($project->path());
     }
 
     /**

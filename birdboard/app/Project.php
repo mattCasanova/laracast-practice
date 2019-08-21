@@ -13,6 +13,11 @@ class Project extends Model
         return "/projects/{$this->id}";
     }
 
+    public function tasksPath() 
+    {
+        return "{$this->path()}/tasks";
+    }
+
     public function owner() 
     {
         return $this->belongsTo(User::class);

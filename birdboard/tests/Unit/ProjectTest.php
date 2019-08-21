@@ -16,6 +16,13 @@ class ProjectTest extends TestCase
     }
 
     /** @test */
+    public function it_has_a_tasks_path()
+    {
+        $project = factory('App\Project')->create();
+        $this->assertEquals($project->path() . '/tasks', $project->tasksPath());
+    }
+
+    /** @test */
     public function it_belongs_to_an_owner() {
         $project = factory('App\Project')->create();
         $this->assertInstanceOf('App\User', $project->owner);
