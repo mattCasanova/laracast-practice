@@ -15,11 +15,13 @@ class ProjectsTest extends TestCase
     /** @test */
     public function guests_cannot_manage_projects()
     {
-        $project = ProjectFactory::create();
-
         $this->get('/projects')->assertRedirect('login');
         $this->get('/projects/create')->assertRedirect('login');
+        
+
+        $project = ProjectFactory::create();
         $this->get($project->path())->assertRedirect('login');
+        $this->get($project->path() . '/edit')->assertRedirect('login');
         $this->post('/projects', $project->toArray())->assertRedirect('login');
     }
 
@@ -70,9 +72,15 @@ class ProjectsTest extends TestCase
     public function a_user_can_update_a_project()
     {
         $project = ProjectFactory::ownedBy($this->signIn())->create();
-        $attributes = ['notes' => 'Changed'];
+        $attributes = [
+            'title' => 'Changed', 
+            'description' => 'Changed',
+            'notes' => 'Changed'
+        ];
 
-        $this->patch($project->path(), $attributes)->assertRedirect($project->path());
+        $this->patch($project->path(), $attributes)
+            ->assertRedirect($project->path());
+        $this->get($project->path() . '/edit')->assertOk();
         $this->assertDatabaseHas('projects', $attributes);
     }
 
