@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Project extends Model
 {
@@ -18,31 +19,28 @@ class Project extends Model
         return "{$this->path()}/tasks";
     }
 
-    public function owner() 
+    public function owner(): Relation 
     {
         return $this->belongsTo(User::class);
     }
 
-    public function tasks() 
+    public function tasks(): Relation 
     {
         return $this->hasMany(Task::class);
     }
 
-    public function addTask($body)
+    public function addTask(string $body): Task
     {
         return $this->tasks()->create(compact('body'));
     }
 
-    public function activity() 
+    public function activity(): Relation
     {
         return $this->hasMany(Activity::class);
     }
 
-    public function recordActivity(string $description) {
-        Activity::create([
-            'project_id' => $this->id,
-            'description' => $description
-        ]);
+    public function recordActivity(string $description): void {
+        $this->activity()->create(compact('description'));
     }
 
 }
